@@ -6,6 +6,7 @@ import operator
 from string import ascii_uppercase
 import os
 import base64
+import json
 
 app = Flask(__name__)
 
@@ -17,14 +18,10 @@ class SignLanguagePredictor:
             raise FileNotFoundError(f"Model JSON file not found: {json_file_path}")
         
         with open(json_file_path, "r") as json_file:
-            model_json = json_file.read()
-        
-        if not model_json:
-            raise ValueError("Model JSON file is empty")
-        
-        self.loaded_model = model_from_json(model_json)
-        self.loaded_model.load_weights("model-H5/model_new.weights.h5")
-        print("Model loaded successfully")
+            architecture = json.load(json_file)
+            self.loaded_model = model_from_json(architecture)
+            self.loaded_model.load_weights("model-H5/model_new.weights.h5")
+            print("Model loaded successfully")
 
     def preprocess_image(self, image):
         # Convert to grayscale
