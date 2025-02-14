@@ -49,7 +49,7 @@ def preprocess():
         preprocessed_image = preprocess_image(image)
         _, buffer = cv2.imencode('.jpg', preprocessed_image)
         preprocessed_image_base64 = base64.b64encode(buffer).decode('utf-8')
-        base64_image = image_to_base64("/home/amogh/Handsign-Backend/11.jpg")
+        # base64_image = image_to_base64("/home/amogh/Handsign-Backend/11.jpg")
         return jsonify({'preprocessed_image': preprocessed_image_base64})
     
     except Exception as e:
